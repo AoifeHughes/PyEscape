@@ -4,7 +4,6 @@
 
 
 This is a python 3 library which provides ready-made simulations for determining the average escape time for a Brownian particle out of a container.
-Examples are provided in the `notebooks` folder.
 
 
 This software can be used by anyone wanting to simulate how long a particle under Brownian motion will take to escape from a container with a number of escape pores on it's surface. This was developed with a cellular biology context, however usage in chemistry, physics and animal sciences could easily be imagined. Software is presented as easily modifiable.
@@ -48,13 +47,6 @@ For help type:
 
 ``` bash
 PyEscape --help
-```
-
-
-# Running example notebook
-
-``` bash
-jupyter-notebook ./notebooks/Examples.ipynb
 ```
 
 # To run as a python package
@@ -150,12 +142,6 @@ Alternatively, installing locally:
 
 ``` bash
 pip install . --user
-```
-
-Running the examples notebook will require additional requirements which can be installed with:
-
-``` bash
-pip install jupyter
 ```
 
 To run tests you will require pytest and the pytest-timeout module:
