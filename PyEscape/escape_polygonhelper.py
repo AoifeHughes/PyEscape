@@ -1,23 +1,29 @@
+# -*- coding: utf-8 -*-
 from numpy.linalg import eig, inv
 from scipy.spatial import ConvexHull
 import numpy as np
 from .escape_utility import vol_ellipsoid
 
 
-def isolate_points_from_segmented_imagestack(img_stack, i, scaleX=1, scaleY=1, scaleZ=1):
+def isolate_points_from_segmented_imagestack(
+    img_stack, i, scaleX=1, scaleY=1, scaleZ=1
+):
     """Given a segmented 3 dimensional image isolate points of the
     polygon to escape from
 
     returns only points of interest as 3D coordinates
     """
-    return np.array(list(zip(*np.where(img_stack == i)))).astype('float64') * \
-        [scaleX, scaleY, scaleZ]
+    return np.array(list(zip(*np.where(img_stack == i)))).astype("float64") * [
+        scaleX,
+        scaleY,
+        scaleZ,
+    ]
 
 
 def scale_voxel_points(pts, Xs, Ys, Zs, Tv):
-    pts_n = pts * [Xs. Ys, Zs]
+    pts_n = pts * [Xs.Ys, Zs]
     h = ConvexHull(pts_n)
-    V = h.volume  # True volume
+    # V = h.volume  # True volume
 
 
 def make_hull_and_scale(pts, V_t=1):
@@ -26,15 +32,15 @@ def make_hull_and_scale(pts, V_t=1):
 
     returns a convex hull and list of points
     """
-    pts = pts.astype('float64')
+    pts = pts.astype("float64")
     hull = ConvexHull(pts)
     V = hull.volume
     cx = np.mean(hull.points[hull.vertices, 0])
     cy = np.mean(hull.points[hull.vertices, 1])
     cz = np.mean(hull.points[hull.vertices, 2])
     pts -= [cx, cy, cz]
-    scaling_f = np.cbrt(V_t/V)
-    pts_c = pts*scaling_f
+    scaling_f = np.cbrt(V_t / V)
+    pts_c = pts * scaling_f
     hull_c = ConvexHull(pts_c)
     return hull_c, pts_c
 
@@ -57,7 +63,7 @@ def ls_ellipsoid(xx, yy, zz):
     z = zz[:, np.newaxis]
 
     #  Ax^2 + By^2 + Cz^2 +  Dxy +  Exz +  Fyz +  Gx +  Hy +  Iz = 1
-    J = np.hstack((x*x, y*y, z*z, x*y, x*z, y*z, x, y, z))
+    J = np.hstack((x * x, y * y, z * z, x * y, x * z, y * z, x, y, z))
     K = np.ones_like(x)  # column of ones
 
     # np.hstack performs a loop over all samples and creates
@@ -78,7 +84,7 @@ def ls_ellipsoid(xx, yy, zz):
     #  where J = -1
     eansa = np.append(ABC, -1)
 
-    return (eansa)
+    return eansa
 
 
 def polyToParams3D(vec):
@@ -93,17 +99,18 @@ def polyToParams3D(vec):
 
     Amat = np.array(
         [
-            [vec[0],     vec[3]/2.0, vec[4]/2.0, vec[6]/2.0],
-            [vec[3]/2.0, vec[1],     vec[5]/2.0, vec[7]/2.0],
-            [vec[4]/2.0, vec[5]/2.0, vec[2],     vec[8]/2.0],
-            [vec[6]/2.0, vec[7]/2.0, vec[8]/2.0, vec[9]]
-        ])
+            [vec[0], vec[3] / 2.0, vec[4] / 2.0, vec[6] / 2.0],
+            [vec[3] / 2.0, vec[1], vec[5] / 2.0, vec[7] / 2.0],
+            [vec[4] / 2.0, vec[5] / 2.0, vec[2], vec[8] / 2.0],
+            [vec[6] / 2.0, vec[7] / 2.0, vec[8] / 2.0, vec[9]],
+        ]
+    )
 
     # See B.Bartoni, Preprint SMU-HEP-10-14 Multi-dimensional Ellipsoidal Fitting
     # equation 20 for the following method for finding the centre
     A3 = Amat[0:3, 0:3]
     A3inv = inv(A3)
-    ofs = vec[6:9]/2.0
+    ofs = vec[6:9] / 2.0
     centre = -np.dot(A3inv, ofs)
 
     # Center the ellipsoid at the origin
@@ -112,9 +119,9 @@ def polyToParams3D(vec):
     R = np.dot(Tofs, np.dot(Amat, Tofs.T))
     R3 = R[0:3, 0:3]
     s1 = -R[3, 3]
-    R3S = R3/s1
+    R3S = R3 / s1
     (el, ec) = eig(R3S)
-    recip = 1.0/np.abs(el)
+    recip = 1.0 / np.abs(el)
     axes = np.sqrt(recip)
     inve = inv(ec)  # inverse is actually the transpose here
 
@@ -122,7 +129,7 @@ def polyToParams3D(vec):
 
 
 def fit_polygon_to_ellipsoid(hull, tV=1):
-    """Given a hull calculate the ABC of ellipsoid which fits """
+    """Given a hull calculate the ABC of ellipsoid which fits"""
     pts = hull.points
     X = pts[:, 0]
     Y = pts[:, 1]
@@ -139,8 +146,8 @@ def fit_polygon_to_ellipsoid(hull, tV=1):
     eansa = ls_ellipsoid(hull[0], hull[1], hull[2])
     centre, axes, inve = polyToParams3D(eansa)
 
-    axes = np.array(axes).astype('float64')
+    axes = np.array(axes).astype("float64")
     volN = vol_ellipsoid(*axes)
-    cbrt_diff = np.cbrt(tV/volN)
+    cbrt_diff = np.cbrt(tV / volN)
     a, b, c = np.array(axes * cbrt_diff)
     return np.array([a, b, c])

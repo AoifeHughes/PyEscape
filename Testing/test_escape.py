@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 from PyEscape.escape_plan import escape
 from PyEscape.escape_points import fibonacci_spheres, random_points_on_cube_surface
 from PyEscape.escape_utility import sphere_vol_to_r
 from PyEscape.escape_points import random_points_on_hull
 from PyEscape.escape_points import random_points_on_ellipsoid
 from PyEscape.escape_polygonhelper import make_hull_and_scale
-import pytest
 import numpy as np
 
 
@@ -24,7 +24,7 @@ def test_escape_cube():
     a = 0.1
     r = sphere_vol_to_r(v)
     pores = random_points_on_cube_surface(1, r)
-    t = escape(D, v, a, pores, shape='cube', dt=1e-6)
+    t = escape(D, v, a, pores, shape="cube", dt=1e-6)
     assert t
 
 
@@ -34,7 +34,7 @@ def test_escape_ellipsoid():
     a = 0.1
     ABC = [3, 2, 1]
     pores = random_points_on_ellipsoid(ABC, v)
-    t = escape(D, v, a, pores, shape='ellipsoid', dt=1e-6, ABC=ABC)
+    t = escape(D, v, a, pores, shape="ellipsoid", dt=1e-6, ABC=ABC)
     assert t
 
 
@@ -75,5 +75,5 @@ def test_escape_polygon():
     a = 0.1
     hull, _ = make_hull_and_scale(np.random.random((10, 3)))
     pores = random_points_on_hull(hull)
-    t = escape(D, v, a, pores, dt=1e-6, hull=hull, shape='polygon')
+    t = escape(D, v, a, pores, dt=1e-6, hull=hull, shape="polygon")
     assert t

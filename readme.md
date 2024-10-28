@@ -10,19 +10,19 @@ Examples are provided in the `notebooks` folder.
 This software can be used by anyone wanting to simulate how long a particle under Brownian motion will take to escape from a container with a number of escape pores on it's surface. This was developed with a cellular biology context, however usage in chemistry, physics and animal sciences could easily be imagined. Software is presented as easily modifiable.
 
 
-## Statement of need 
+## Statement of need
 
 Many tutorials, examples and solutions to random walks are widely available.
 Solutions with boundary conditions are rare, but still given. For the more
 complex, such as in three dimensions and in specific shapes this is difficult
-problem with no standard solution. 
+problem with no standard solution.
 
 We provide this library to give a simple protocol for estimating narrow escape
-problems. By using stochastic simulations results can be quickly found. 
+problems. By using stochastic simulations results can be quickly found.
 
 In particular, this library is useful for working with specifically, or
 randomly, placed exit pores with varying sizes and with non-standard shapes ( we
-provide a cube example). 
+provide a cube example).
 
 ## A note on running
 
@@ -51,7 +51,7 @@ PyEscape --help
 ```
 
 
-# Running example notebook 
+# Running example notebook
 
 ``` bash
 jupyter-notebook ./notebooks/Examples.ipynb
@@ -146,7 +146,7 @@ With python 3.6+ clone the repository and run:
 pip install .
 ```
 
-Alternatively, installing locally: 
+Alternatively, installing locally:
 
 ``` bash
 pip install . --user

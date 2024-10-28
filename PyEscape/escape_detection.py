@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 from scipy.spatial import ConvexHull
 
@@ -29,15 +30,16 @@ def in_cube(p, r=1):
 
     returns True if p is in specified cube
     """
-    r = r/2
+    r = r / 2
     return not any(np.logical_or(p <= -r, p >= r))
 
 
 def in_cuboid(p, cXYZ):
-    return not np.any(np.less(cXYZ/2, np.abs(p)))
+    return not np.any(np.less(cXYZ / 2, np.abs(p)))
 
-def in_ellipsoid(x, y, z, a, b, c): return (
-    (x**2/a**2) + (y**2/b**2) + (z**2/c**2)) < 1
+
+def in_ellipsoid(x, y, z, a, b, c):
+    return ((x**2 / a**2) + (y**2 / b**2) + (z**2 / c**2)) < 1
 
 
 def passthrough_pore(p, p0, r=1, tol=1):
@@ -50,8 +52,7 @@ def passthrough_pore(p, p0, r=1, tol=1):
 
     returns True if p is within p0
     """
-    return np.any(np.linalg.norm(p-p0, axis=1) < r*tol)
- 
+    return np.any(np.linalg.norm(p - p0, axis=1) < r * tol)
 
 
 def passthrough_flat_pore(p, p0, r=1):

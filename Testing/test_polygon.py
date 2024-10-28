@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from PyEscape.escape_polygonhelper import make_hull_and_scale
 import numpy as np
-import pytest
 
 
 def test_make_hull_and_scale():

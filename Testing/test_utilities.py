@@ -1,4 +1,10 @@
-from PyEscape.escape_utility import sphere_vol_to_r, cube_vol_to_r, calculate_delta, calculate_opt_dt
+# -*- coding: utf-8 -*-
+from PyEscape.escape_utility import (
+    sphere_vol_to_r,
+    cube_vol_to_r,
+    calculate_delta,
+    calculate_opt_dt,
+)
 import numpy.testing as npt
 
 
@@ -15,4 +21,6 @@ def test_calc_delta():
 
 
 def test_opt_dt():
-    npt.assert_almost_equal(calculate_opt_dt(0.1, 400), 4.166666666666668e-06, decimal=5)
+    npt.assert_almost_equal(
+        calculate_opt_dt(0.1, 400), 4.166666666666668e-06, decimal=5
+    )

@@ -35,7 +35,7 @@ refined over the years [@schussNarrowEscapeProblem2007].
 Recently, solutions have been given [@kayeFastSolverNarrow2020] for more complex
 narrow escape problems, such as arbitrary escape pore patterning and size
 variation. However, these are provided without easily accessible implementations
-and confine the problem to a single container shape. 
+and confine the problem to a single container shape.
 
 Here, we present a novel Python library that enables stochastic simulations to
 be run in order to approximate the narrow escape problem for unique scenarios.
@@ -57,7 +57,7 @@ sphere. This is often useful in experiments to test how number of escapes
 relates to mean escape time.
 
 
-# External libraries used 
+# External libraries used
 
 The models given are implemented through NumPy
 [@vanderwaltNumPyArrayStructure2011]], results are visualised through Matplotlib
