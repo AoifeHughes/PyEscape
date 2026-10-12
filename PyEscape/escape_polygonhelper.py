@@ -120,7 +120,7 @@ def polyToParams3D(vec):
     R3 = R[0:3, 0:3]
     s1 = -R[3, 3]
     R3S = R3 / s1
-    (el, ec) = eig(R3S)
+    el, ec = eig(R3S)
     recip = 1.0 / np.abs(el)
     axes = np.sqrt(recip)
     inve = inv(ec)  # inverse is actually the transpose here

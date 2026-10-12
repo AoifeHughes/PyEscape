@@ -3,7 +3,6 @@ from PyEscape.escape_points import fibonacci_spheres, random_points_on_cube_surf
 from PyEscape.escape_detection import in_sphere, in_cube
 from PyEscape.escape_utility import sphere_vol_to_r
 
-
 V = 1
 P = 1
 eps = 0.001 * V
